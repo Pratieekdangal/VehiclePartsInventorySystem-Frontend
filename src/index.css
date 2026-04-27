@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Manrope:wght@600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   Base layer — global resets aligned with VPS design system
+   ============================================================ */
+
+@layer base {
+  html, body, #root { height: 100%; }
+  body {
+    @apply bg-bg text-fg-1 font-body antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  .font-mono { font-variant-numeric: tabular-nums; }
+
+  :where(button, a, input, select, textarea):focus-visible {
+    outline: none;
+    @apply shadow-focus border-primary-500;
+  }
+}
+
+/* ============================================================
+   Typography utility classes (semantic helpers from token system)
+   ============================================================ */
+
+@layer components {
+  .vps-display {
+    @apply font-display font-extrabold text-4xl tracking-display text-fg-1;
+  }
+  .vps-h1 {
+    @apply font-display font-bold text-3xl tracking-h1 text-fg-1;
+  }
+  .vps-h2 {
+    @apply font-display font-bold text-2xl tracking-h2 text-fg-1;
+  }
+  .vps-h3 {
+    @apply font-body font-semibold text-xl text-fg-1;
+  }
+  .vps-h4 {
+    @apply font-body font-semibold text-lg text-fg-1;
+  }
+  .vps-body { @apply font-body font-normal text-base text-fg-1; }
+  .vps-body-sm { @apply font-body font-normal text-sm text-fg-2; }
+  .vps-caption {
+    @apply font-body font-medium text-xs text-fg-3 uppercase tracking-caption;
+  }
+  .vps-mono {
+    @apply font-mono font-medium text-sm text-fg-1;
+    font-variant-numeric: tabular-nums;
+  }
+  .vps-money {
+    @apply font-mono font-semibold text-fg-1;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.01em;
+  }
+  .vps-label { @apply font-body font-semibold text-sm text-fg-1; }
+}
