@@ -28,6 +28,9 @@ import AdminPartRequests from './pages/admin/PartRequests';
 import StaffDashboard from './pages/staff/Dashboard';
 import NewSale from './pages/staff/NewSale';
 import StaffSales from './pages/staff/Sales';
+import StaffCustomers from './pages/staff/Customers';
+import StaffCustomerDetail from './pages/staff/CustomerDetail';
+import StaffReports from './pages/staff/Reports';
 
 import CustomerHome from './pages/customer/Home';
 import CustomerProfile from './pages/customer/Profile';
@@ -62,6 +65,8 @@ const staffNav = [
   { to: '/staff', label: 'Dashboard', icon: LayoutDashboard, end: true },
   { to: '/staff/new-sale', label: 'New sale', icon: ShoppingCart },
   { to: '/staff/sales', label: 'All sales', icon: Receipt },
+  { to: '/staff/customers', label: 'Customers', icon: Users },
+  { to: '/staff/reports', label: 'Reports', icon: BarChart3 },
   { to: '/staff/notifications', label: 'Notifications', icon: Bell },
 ];
 
@@ -133,6 +138,9 @@ export default function App() {
             <Route path="/staff" element={<StaffDashboard />} />
             <Route path="/staff/new-sale" element={<NewSale />} />
             <Route path="/staff/sales" element={<StaffSales />} />
+            <Route path="/staff/customers" element={<StaffCustomers />} />
+            <Route path="/staff/customers/:id" element={<StaffCustomerDetail />} />
+            <Route path="/staff/reports" element={<StaffReports />} />
             <Route path="/staff/notifications" element={<NotificationsPage />} />
           </Route>
 
