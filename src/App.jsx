@@ -4,6 +4,7 @@ import { Toaster } from 'react-hot-toast';
 import {
   LayoutDashboard, FileText, BarChart3, Bell,
   ShoppingCart, Calendar, Receipt, UserCircle,
+  Package, Truck,
 } from 'lucide-react';
 
 import { useAuth, homePathFor } from './store/auth';
@@ -17,9 +18,12 @@ import Register from './pages/auth/Register';
 import AdminDashboard from './pages/admin/Dashboard';
 import AdminPurchases from './pages/admin/Purchases';
 import AdminReports from './pages/admin/Reports';
+import AdminParts from './pages/admin/Parts';
+import AdminVendors from './pages/admin/Vendors';
 
 import StaffDashboard from './pages/staff/Dashboard';
 import NewSale from './pages/staff/NewSale';
+import StaffSales from './pages/staff/Sales';
 
 import CustomerHome from './pages/customer/Home';
 
@@ -35,6 +39,8 @@ const queryClient = new QueryClient({
 // pages — add their import + nav entry + matching <Route /> below.
 const adminNav = [
   { to: '/admin', label: 'Dashboard', icon: LayoutDashboard, end: true },
+  { to: '/admin/parts', label: 'Parts inventory', icon: Package },
+  { to: '/admin/vendors', label: 'Vendors', icon: Truck },
   { to: '/admin/purchases', label: 'Purchase invoices', icon: FileText },
   { to: '/admin/reports', label: 'Reports', icon: BarChart3 },
   { to: '/admin/notifications', label: 'Notifications', icon: Bell },
@@ -43,6 +49,7 @@ const adminNav = [
 const staffNav = [
   { to: '/staff', label: 'Dashboard', icon: LayoutDashboard, end: true },
   { to: '/staff/new-sale', label: 'New sale', icon: ShoppingCart },
+  { to: '/staff/sales', label: 'All sales', icon: Receipt },
   { to: '/staff/notifications', label: 'Notifications', icon: Bell },
 ];
 
@@ -85,6 +92,8 @@ export default function App() {
             }
           >
             <Route path="/admin" element={<AdminDashboard />} />
+            <Route path="/admin/parts" element={<AdminParts />} />
+            <Route path="/admin/vendors" element={<AdminVendors />} />
             <Route path="/admin/purchases" element={<AdminPurchases />} />
             <Route path="/admin/reports" element={<AdminReports />} />
             <Route path="/admin/notifications" element={<NotificationsPage />} />
@@ -104,6 +113,7 @@ export default function App() {
           >
             <Route path="/staff" element={<StaffDashboard />} />
             <Route path="/staff/new-sale" element={<NewSale />} />
+            <Route path="/staff/sales" element={<StaffSales />} />
             <Route path="/staff/notifications" element={<NotificationsPage />} />
           </Route>
 
