@@ -2,33 +2,28 @@ import { Navigate, Route, BrowserRouter, Routes } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from 'react-hot-toast';
 import {
-  LayoutDashboard,
-  Package,
-  Truck,
-  Users,
-  FileText,
-  BarChart3,
-  Bell,
-  Receipt,
-  ShoppingCart,
-  Calendar,
-  Inbox,
-  Star,
-  Car,
-  History,
+  LayoutDashboard, FileText, BarChart3, Bell,
+  ShoppingCart, Calendar, Receipt, UserCircle,
 } from 'lucide-react';
 
 import { useAuth, homePathFor } from './store/auth';
 import AppShell from './components/layout/AppShell';
+import MobileShell from './components/layout/MobileShell';
 import ProtectedRoute from './components/layout/ProtectedRoute';
 
 import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
 
 import AdminDashboard from './pages/admin/Dashboard';
+import AdminPurchases from './pages/admin/Purchases';
+import AdminReports from './pages/admin/Reports';
+
 import StaffDashboard from './pages/staff/Dashboard';
 import NewSale from './pages/staff/NewSale';
+
 import CustomerHome from './pages/customer/Home';
+
+import NotificationsPage from './pages/Notifications';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -36,12 +31,11 @@ const queryClient = new QueryClient({
   },
 });
 
+// Per-role nav arrays. Teammates will extend these when they push their
+// pages — add their import + nav entry + matching <Route /> below.
 const adminNav = [
   { to: '/admin', label: 'Dashboard', icon: LayoutDashboard, end: true },
-  { to: '/admin/parts', label: 'Parts inventory', icon: Package },
-  { to: '/admin/vendors', label: 'Vendors', icon: Truck },
   { to: '/admin/purchases', label: 'Purchase invoices', icon: FileText },
-  { to: '/admin/staff', label: 'Staff', icon: Users },
   { to: '/admin/reports', label: 'Reports', icon: BarChart3 },
   { to: '/admin/notifications', label: 'Notifications', icon: Bell },
 ];
@@ -49,19 +43,12 @@ const adminNav = [
 const staffNav = [
   { to: '/staff', label: 'Dashboard', icon: LayoutDashboard, end: true },
   { to: '/staff/new-sale', label: 'New sale', icon: ShoppingCart },
-  { to: '/staff/sales', label: 'All sales', icon: Receipt },
-  { to: '/staff/customers', label: 'Customers', icon: Users },
-  { to: '/staff/reports', label: 'Reports', icon: BarChart3 },
   { to: '/staff/notifications', label: 'Notifications', icon: Bell },
 ];
 
-const customerNav = [
+const customerTabs = [
   { to: '/customer', label: 'Home', icon: LayoutDashboard, end: true },
-  { to: '/customer/book', label: 'Book service', icon: Calendar },
-  { to: '/customer/history', label: 'Purchase history', icon: History },
-  { to: '/customer/requests', label: 'Part requests', icon: Inbox },
-  { to: '/customer/reviews', label: 'Reviews', icon: Star },
-  { to: '/customer/profile', label: 'Profile & vehicles', icon: Car },
+  { to: '/customer/notifications', label: 'Alerts', icon: Bell },
 ];
 
 function HomeRedirect() {
@@ -98,7 +85,9 @@ export default function App() {
             }
           >
             <Route path="/admin" element={<AdminDashboard />} />
-            {/* Other admin routes will land here as they ship */}
+            <Route path="/admin/purchases" element={<AdminPurchases />} />
+            <Route path="/admin/reports" element={<AdminReports />} />
+            <Route path="/admin/notifications" element={<NotificationsPage />} />
           </Route>
 
           {/* Staff shell */}
@@ -115,21 +104,22 @@ export default function App() {
           >
             <Route path="/staff" element={<StaffDashboard />} />
             <Route path="/staff/new-sale" element={<NewSale />} />
+            <Route path="/staff/notifications" element={<NotificationsPage />} />
           </Route>
 
-          {/* Customer shell (mobile-first; using same shell for now) */}
+          {/* Customer mobile shell */}
           <Route
             element={
               <ProtectedRoute allow={['Customer']}>
-                <AppShell
-                  navItems={customerNav}
-                  sectionLabel="Service"
+                <MobileShell
+                  tabs={customerTabs}
                   notificationsTo="/customer/notifications"
                 />
               </ProtectedRoute>
             }
           >
             <Route path="/customer" element={<CustomerHome />} />
+            <Route path="/customer/notifications" element={<NotificationsPage />} />
           </Route>
 
           <Route path="*" element={<Navigate to="/" replace />} />
