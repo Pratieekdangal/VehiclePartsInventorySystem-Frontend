@@ -5,6 +5,7 @@ import {
   LayoutDashboard, FileText, BarChart3, Bell,
   ShoppingCart, Calendar, Receipt, UserCircle,
   Package, Truck,
+  Users, Inbox, Star, Car, History,
 } from 'lucide-react';
 
 import { useAuth, homePathFor } from './store/auth';
@@ -20,12 +21,20 @@ import AdminPurchases from './pages/admin/Purchases';
 import AdminReports from './pages/admin/Reports';
 import AdminParts from './pages/admin/Parts';
 import AdminVendors from './pages/admin/Vendors';
+import AdminStaff from './pages/admin/Staff';
+import AdminAppointments from './pages/admin/Appointments';
+import AdminPartRequests from './pages/admin/PartRequests';
 
 import StaffDashboard from './pages/staff/Dashboard';
 import NewSale from './pages/staff/NewSale';
 import StaffSales from './pages/staff/Sales';
 
 import CustomerHome from './pages/customer/Home';
+import CustomerProfile from './pages/customer/Profile';
+import CustomerBookService from './pages/customer/BookService';
+import CustomerHistory from './pages/customer/History';
+import CustomerReviews from './pages/customer/Reviews';
+import CustomerPartRequests from './pages/customer/PartRequests';
 
 import NotificationsPage from './pages/Notifications';
 
@@ -42,6 +51,9 @@ const adminNav = [
   { to: '/admin/parts', label: 'Parts inventory', icon: Package },
   { to: '/admin/vendors', label: 'Vendors', icon: Truck },
   { to: '/admin/purchases', label: 'Purchase invoices', icon: FileText },
+  { to: '/admin/staff', label: 'Staff', icon: Users },
+  { to: '/admin/appointments', label: 'Appointments', icon: Calendar },
+  { to: '/admin/part-requests', label: 'Part requests', icon: Inbox },
   { to: '/admin/reports', label: 'Reports', icon: BarChart3 },
   { to: '/admin/notifications', label: 'Notifications', icon: Bell },
 ];
@@ -53,9 +65,13 @@ const staffNav = [
   { to: '/staff/notifications', label: 'Notifications', icon: Bell },
 ];
 
+// Customer mobile bottom-tab order per design system: Home · Service · History · Reviews · Profile.
 const customerTabs = [
   { to: '/customer', label: 'Home', icon: LayoutDashboard, end: true },
-  { to: '/customer/notifications', label: 'Alerts', icon: Bell },
+  { to: '/customer/book', label: 'Service', icon: Calendar },
+  { to: '/customer/history', label: 'History', icon: Receipt },
+  { to: '/customer/reviews', label: 'Reviews', icon: Star },
+  { to: '/customer/profile', label: 'Profile', icon: UserCircle },
 ];
 
 function HomeRedirect() {
@@ -96,6 +112,9 @@ export default function App() {
             <Route path="/admin/vendors" element={<AdminVendors />} />
             <Route path="/admin/purchases" element={<AdminPurchases />} />
             <Route path="/admin/reports" element={<AdminReports />} />
+            <Route path="/admin/staff" element={<AdminStaff />} />
+            <Route path="/admin/appointments" element={<AdminAppointments />} />
+            <Route path="/admin/part-requests" element={<AdminPartRequests />} />
             <Route path="/admin/notifications" element={<NotificationsPage />} />
           </Route>
 
@@ -129,6 +148,11 @@ export default function App() {
             }
           >
             <Route path="/customer" element={<CustomerHome />} />
+            <Route path="/customer/book" element={<CustomerBookService />} />
+            <Route path="/customer/history" element={<CustomerHistory />} />
+            <Route path="/customer/reviews" element={<CustomerReviews />} />
+            <Route path="/customer/profile" element={<CustomerProfile />} />
+            <Route path="/customer/requests" element={<CustomerPartRequests />} />
             <Route path="/customer/notifications" element={<NotificationsPage />} />
           </Route>
 
